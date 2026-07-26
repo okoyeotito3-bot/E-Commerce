@@ -1,0 +1,99 @@
+/* ==============================================================================
+ * 1. BASE STYLES & VARIABLES
+ * ============================================================================== */
+
+:root {
+  --ink: #0f172a;
+  --ink-soft: #475569;
+  --ink-subtle: #94a3b8;
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --line: #e2e8f0;
+  
+  --coral: #f97316;
+  --coral-dark: #ea580c;
+  --teal: #0d9488;
+  --teal-light: #ccfbf1;
+  --gold: #eab308;
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"],
+body.dark-mode {
+  --ink: #f8fafc;
+  --ink-soft: #cbd5e1;
+  --ink-subtle: #64748b;
+
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --line: #334155;
+
+  --coral: #fb923c;
+  --coral-dark: #f97316;
+  --teal: #14b8a6;
+  --teal-light: rgba(20, 184, 166, 0.15);
+  --gold: #facc15;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.6);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Sora', sans-serif;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--coral);
+  outline-offset: 2px;
+}

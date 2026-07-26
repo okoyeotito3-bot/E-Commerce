@@ -1,0 +1,144 @@
+/* ==============================================================================
+ * 4. MAIN CATALOG GRID & PRODUCT CARDS
+ * ============================================================================== */
+
+main {
+  flex: 1;
+  padding: 2.5rem 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+main > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.product {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.product:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--ink-subtle);
+}
+
+.product img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.product h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 1rem 1rem 0.25rem;
+}
+
+.product h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--teal);
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 0 1rem 0.5rem;
+}
+
+.product h4 {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  padding: 0 1rem 1.25rem;
+  flex: 1;
+}
+
+.product::before {
+  content: "NEW";
+  position: absolute;
+  top: 12px;
+  right: 0;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  z-index: 2;
+}
+
+.product > button {
+  margin: 0 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.price-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 1rem 0.5rem;
+}
+
+.itemPrice {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.saleCurrency {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.addToCartBtn {
+  background: var(--coral);
+  color: #fff;
+}
+
+.addToCartBtn:hover {
+  background: var(--coral-dark);
+}
+
+.addToCartBtn:active {
+  transform: scale(0.98);
+}
+
+.removeFromCartBtn {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--line) !important;
+}
+
+.removeFromCartBtn:hover {
+  border-color: var(--ink) !important;
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  main {
+    padding: 1.5rem 1rem;
+  }
+
+  main > div {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
