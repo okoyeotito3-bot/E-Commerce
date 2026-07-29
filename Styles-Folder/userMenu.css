@@ -1,0 +1,114 @@
+
+#userMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 50vw; 
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  box-shadow: var(--shadow-xl);
+  padding: 2rem 1.5rem;
+  z-index: 900;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+#userMenu.showuserMenu {
+  transform: translateX(0);
+}
+
+/* Backdrop Blur Overlay */
+#userMenu::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  left: 100%;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+#userMenu.show::after {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* ==========================================================================
+   User Menu Button Styles
+   ========================================================================== */
+
+/* Shared Base Button Styles */
+#userMenu button {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid var(--line, #e2e8f0);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+/* Base Hover Effect */
+#userMenu button:hover {
+  background: rgba(255, 255, 255, 0.05); /* Works on both dark/light panels */
+  border-color: var(--accent, #3b82f6);
+  transform: translateX(4px); /* Subtle slide forward on hover */
+}
+
+/* 1. Wishlist Button */
+.seeWishlist {
+  color: var(--text-main, #1e293b);
+}
+
+.seeWishlist:hover {
+  color: var(--accent, #3b82f6);
+}
+
+/* 2. Orders Button */
+.order {
+  color: var(--text-main, #1e293b);
+}
+
+.order:hover {
+  color: #10b981; /* Emerald green accent for orders */
+}
+
+/* 3. Sign Out Button (Pushed to bottom + Alert state) */
+.auth {
+  margin-top: auto; /* Pushes the Sign Out button to the bottom of the side-drawer */
+  color: #ef4444; /* Alert red */
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.auth:hover {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #ef4444 !important;
+  transform: translateX(0) !important;
+}
+
+/* Mobile & Tablet Screens: Full width slider */
+@media (max-width: 768px) {
+  #userMenu {
+    width: 100vw;
+  }
+
+ 
+}

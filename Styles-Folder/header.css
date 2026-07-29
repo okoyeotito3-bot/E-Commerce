@@ -8,34 +8,26 @@ header {
   color: #fff;
   padding: 1rem 1.5rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1.25rem;
+  gap: 1rem;
   position: sticky;
   top: 0;
   z-index: 50;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-header h1 {
+/* ---------- Search (label + input) ---------- */
+.labeldiv {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-header h1 span:first-child::before {
-  content: "◆ ";
-  color: var(--coral);
+  gap: 0.75rem;
+  flex: 0 1 auto;
+  order: 2; /* search sits after branding on desktop */
 }
 
 label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.1);
@@ -45,6 +37,7 @@ label {
   cursor: pointer;
   transition: var(--transition);
   user-select: none;
+  white-space: nowrap;
 }
 
 label:hover {
@@ -57,8 +50,6 @@ input {
 
 input.show {
   display: block;
-  width: 100%;
-  max-width: 400px;
   padding: 0.5rem 1rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
@@ -66,6 +57,8 @@ input.show {
   font-size: 0.875rem;
   background: #fff;
   transition: var(--transition);
+  width: 100%;
+  max-width: 220px;
 }
 
 input:focus {
@@ -73,7 +66,33 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
 }
 
-#totalInCart {
+/* ---------- Branding + cart + toggle (built by updateUi) ---------- */
+.headerdiv {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  order: 1;
+}
+
+.appName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.appName::before {
+  content: "◆ ";
+  color: var(--coral);
+}
+
+.totalInCart {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -87,25 +106,80 @@ input:focus {
   align-items: center;
   gap: 0.5rem;
   color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-#totalInCart::before {
+.totalInCart::before {
   content: "🛒";
   font-size: 0.875rem;
 }
 
-#totalInCart:hover {
+.totalInCart:hover {
   background: var(--coral);
   border-color: var(--coral);
   transform: translateY(-1px);
 }
 
+
+.headerToggle{
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: #fff;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.headerToggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.headerToggle{
+  width: 22px;
+  height: 22px;
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 900px) {
+  .appName {
+    font-size: 1.1rem;
+  }
+}
+
+/* ---------- Mobile ---------- */
 @media (max-width: 640px) {
   header {
-    padding: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
   }
-  
-  header h1 {
-    font-size: 1rem;
+
+  .headerdiv {
+    order: 1;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+ 
+
+  .labeldiv {
+    order: 2;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  label {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  input.show {
+    max-width: none;
+    flex: 1 1 100%;
   }
 }

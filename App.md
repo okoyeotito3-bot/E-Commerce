@@ -6,5 +6,5 @@
 🏷️ Filter by category
 ❤️ Wishlist/Favorites
 📄 Product details page or modal
-🌙 Dark mode
+🌙 Dark mode.....
 💾 Save the cart with localStorage so it remains after refreshing .....

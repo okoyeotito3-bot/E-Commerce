@@ -108,6 +108,14 @@ main > div {
   color: var(--ink-soft);
 }
 
+.WishlistBtn{
+  text-align: end;
+  cursor: pointer;
+}
+
+
+
+
 .addToCartBtn {
   background: var(--coral);
   color: #fff;
@@ -121,16 +129,6 @@ main > div {
   transform: scale(0.98);
 }
 
-.removeFromCartBtn {
-  background: transparent;
-  color: var(--ink-soft);
-  border: 1px solid var(--line) !important;
-}
-
-.removeFromCartBtn:hover {
-  border-color: var(--ink) !important;
-  color: var(--ink);
-}
 
 @media (max-width: 640px) {
   main {

@@ -14,7 +14,7 @@
  * ARCHITECTURE & TASK BREAKDOWN:
  * ------------------------------------------------------------------------------
  * • Task 1 & 4: DOM Node Selection & Creation
- *   Queries top-level page layout elements (header, main, section, aside, footer)
+ *   Queries top-level page layout elements (headerdiv, main, section, aside, footer)
  *   and dynamically constructs interactive inputs, badges, and headings.
  * 
  * • Task 2 & 3: Persistent State Initialization
@@ -22,7 +22,7 @@
  *   from LocalStorage on page load to maintain state across reloads.
  * 
  * • Task 5, 6 & 8: Dynamic UI Assembly & Catalog Rendering
- *   Appends search controls to the header and builds product card grids dynamically 
+ *   Appends search controls to the headerdiv and builds product card grids dynamically 
  *   from imported data array templates (`catalogueData`).
  * 
  * • Task 7 & 9: UI Synchronization
@@ -43,80 +43,94 @@
 
 import { catalogueData } from "./product.js";
 import { 
-sectionBarToggler,
 itemInPurchasedCart,
- createProductCardHTML,
-themeToggleFunction } from "./helper.js";
+createProductCardHTML,
+updateUi ,
+buildUserMenu,
+xIcon,
+hamburgerIcon,
+} from "./helper.js";
+
+import {
+sectionBarToggler,
+userMenuToggle,
+themeToggleFunction 
+} from "./toggler.js"
 
 
 // Task 1
 const headerElem=document.querySelector("header");
-const sectionElem=document.querySelector("section");
+const orderedProduts=document.querySelector("#orderedProduts");
+const userMenu=document.querySelector("#userMenu");
 const mainElem=document.querySelector("main");
 const asideElem=document.querySelector("aside");
 const footerElem=document.querySelector("footer");
 
 //Task 2
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let numberOfItemsInCart = cart.length;
-
-//Task 3
+let totalCartItems = cart.length;
+const rawWishlist = localStorage.getItem("wishlist");
+const wishlist = rawWishlist ? JSON.parse(rawWishlist) : []; 
 const savedTheme = localStorage.getItem('userTheme');
-
 if (savedTheme === 'dark') {
   document.body.classList.add('dark-mode');
 }
 
-// Task 4
-const div=document.createElement("div");
-const input = document.createElement("input")
-const header=document.createElement("h1");
-const label = document.createElement('label')
 
-//Task 5
+
+// Task 4
+const labeldiv= document.createElement("div")
+labeldiv.className="labeldiv"
+
+const input = document.createElement("input");
 input.type='search'
-input.placeholder='What are you looking for?'
+input.placeholder='What are you looking for?';
+
+const headerdiv=document.createElement("div");
+headerdiv.className='headerdiv'
+updateUi(headerdiv)
+
+const label = document.createElement('label')
 label.textContent= "🔍 Search products..."
-header.innerHTML= `<span>
-                    E-commerce Website 
-                  </span>
-                  <span id="totalInCart">
-                   Total Item In Cart
-                    ${numberOfItemsInCart}     
-                  </span>`
+const productDiv=document.createElement("div");
+
+
+
 
 
 //Task 6
-mainElem.append(div);
-headerElem.append(
-label,
-input,
-header)
+headerElem.append(labeldiv,headerdiv)
+labeldiv.append(label,input)
+mainElem.append(productDiv);
 
 
-//Task 7
-sectionElem.innerHTML = itemInPurchasedCart();
-
-//Task 8
-div.innerHTML = catalogueData.map(createProductCardHTML).join("");
+buildUserMenu(userMenu)
+orderedProduts.innerHTML = itemInPurchasedCart();
+productDiv.innerHTML = catalogueData.map(createProductCardHTML).join("");
 
 
-//Task 9
-function updateUi(){
- header.innerHTML= 
-  `<span>
-    E-commerce Website 
-  </span>
-  <span id="totalInCart">
-    Total Item In Cart
-    ${numberOfItemsInCart}     
- </span>`}
-
-
-
-//Task 10
-div.addEventListener("click",(event)=>{
   
+
+
+//-----Event Listeners--------------/
+headerdiv.addEventListener("click", (event) => {
+
+if (event.target.classList.contains("totalInCart")){
+ sectionBarToggler(orderedProduts) 
+};
+
+if (event.target.closest(".headerToggle")){
+  userMenuToggle(userMenu)
+  if(userMenu.classList.contains("showuserMenu")){
+    event.target.innerHTML=xIcon
+  }else{
+    event.target.innerHTML=hamburgerIcon
+  }}
+
+});
+
+productDiv.addEventListener("click",(event)=>{
+//Add to cart 
 if(event.target.classList.contains("addToCartBtn")){
 
 const products= event.target.closest(".product");
@@ -133,62 +147,75 @@ const cartObj={
   itemImage:img,
  };
 
-
-
 cart.push(cartObj)
-numberOfItemsInCart = cart.length;
-updateUi();
 
+totalCartItems = cart.length;
 localStorage.setItem("cart", JSON.stringify(cart));
+
+updateUi(headerdiv)
 itemInPurchasedCart()
-sectionElem.innerHTML=itemInPurchasedCart()
+orderedProduts.innerHTML=itemInPurchasedCart()
+}
+
+//Add to wishlist
+if(event.target.classList.contains("WishlistBtn")){
+const productCard = event.target.closest(".product");
+const itemName = productCard.querySelector("h2").textContent;
+const itemIndex = wishlist.indexOf(itemName);
+
+if (itemIndex === -1) {
+    wishlist.push(itemName);
+    event.target.textContent = "❤️";
+  } else {
+    wishlist.splice(itemIndex, 1);
+    event.target.textContent = "🤍";
+  }
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}
 
 
+})
 
-}})
-
-
+//Label Listener
 label.addEventListener("click", () => {
 input.classList.add('show');
 label.style.display="none"
 });
 
-header.addEventListener("click", (event) => {
-  if (event.target.id === 'totalInCart') {
-    sectionBarToggler(sectionElem);
-  }
-});
 
 
+//(Aside Element)asideElem Listener
 asideElem.addEventListener('click', () => {
-sectionBarToggler(sectionElem);
+sectionBarToggler(orderedProduts);
 });
 
 
+//Event Listener for Items already ordered
+orderedProduts.addEventListener('click',()=>{
 
-sectionElem.addEventListener('click',()=>{
-
-  if(event.target.classList.contains("removefromcartBtn")){
+if(event.target.classList.contains("removefromcartBtn")){
 const indexToRemove = Number(event.target.dataset.index);
 cart.splice(indexToRemove,1)
 localStorage.setItem("cart", JSON.stringify(cart));
-numberOfItemsInCart = cart.length;
-updateUi();
-sectionElem.innerHTML = itemInPurchasedCart();
-  }
+totalCartItems = cart.length;
+updateUi(headerdiv);
+orderedProduts.innerHTML = itemInPurchasedCart();
 
+}
+
+if(event.target.className==="backToShoppingBtn")sectionBarToggler(orderedProduts);
 });
 
 //Live Search Event Listener
-input.addEventListener('input', () => {
+input.addEventListener('input', (event) => {
 const query = input.value.trim().toLowerCase();
 
 const searchResults = catalogueData.filter(item => item.itemName.toLowerCase().includes(query));
 
 if(searchResults.length===0){
-div.innerHTML=`<p>No Item found For this search </P>`
+productDiv.innerHTML=`<p>No Item found For this search </P>`
 } else{
-div.innerHTML = searchResults.map(createProductCardHTML).join("");
+productDiv.innerHTML = searchResults.map(createProductCardHTML).join("");
 }
 
 
@@ -197,7 +224,6 @@ div.innerHTML = searchResults.map(createProductCardHTML).join("");
 
 //Toogling Theme Event Listener
 window.addEventListener('dblclick',themeToggleFunction);
-
 
 
 
