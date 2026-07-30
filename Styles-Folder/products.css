@@ -2,20 +2,95 @@
  * 4. MAIN CATALOG GRID & PRODUCT CARDS
  * ============================================================================== */
 
+:root {
+  --bg: #f7f7f5;
+  --panel: #ffffff;
+  --line: #e5e5e0;
+  --ink: #1e293b;
+  --ink-soft: #64748b;
+  --ink-subtle: #cbd5e1;
+  --teal: #0d9488;
+  --gold: #f2b705;
+  --coral: #ef4444;
+  --coral-dark: #dc2626;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+  --shadow-xl: 0 20px 40px rgba(0,0,0,0.18);
+  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+ 
+body.dark-mode {
+  --bg: #121212;
+  --panel: #1e1e1e;
+  --line: #333333;
+  --ink: #f1f1f1;
+  --ink-soft: #a0a0a0;
+  --ink-subtle: #4a4a4a;
+  --teal: #2dd4bf;
+  --gold: #fbbf24;
+  --coral: #f87171;
+  --coral-dark: #ef4444;
+}
+ 
+* { box-sizing: border-box; }
+ 
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, sans-serif;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+ 
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 1rem 1.5rem;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+ 
+.toolbar h1 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+ 
+.toolbar button {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+ 
 main {
   flex: 1;
   padding: 2.5rem 1.5rem;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+ 
 }
-
+ 
+main.hideMain{
+  display: none;
+}
+ 
 main > div {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.5rem;
 }
-
+ 
 .product {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -28,13 +103,13 @@ main > div {
   transition: var(--transition);
   box-shadow: var(--shadow-sm);
 }
-
+ 
 .product:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
   border-color: var(--ink-subtle);
 }
-
+ 
 .product img {
   width: 100%;
   height: 200px;
@@ -42,13 +117,13 @@ main > div {
   background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
-
+ 
 .product h2 {
   font-size: 1.05rem;
   font-weight: 700;
   padding: 1rem 1rem 0.25rem;
 }
-
+ 
 .product h3 {
   font-size: 0.875rem;
   font-weight: 600;
@@ -56,7 +131,7 @@ main > div {
   font-family: 'IBM Plex Mono', monospace;
   padding: 0 1rem 0.5rem;
 }
-
+ 
 .product h4 {
   font-size: 0.8125rem;
   color: var(--ink-soft);
@@ -64,7 +139,7 @@ main > div {
   padding: 0 1rem 1.25rem;
   flex: 1;
 }
-
+ 
 .product::before {
   content: "NEW";
   position: absolute;
@@ -79,62 +154,63 @@ main > div {
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   z-index: 2;
 }
-
+ 
 .product > button {
   margin: 0 1rem;
   padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
-  font-size: 0.875rem;
+  font-size: 1.5rem;
   font-weight: 600;
   transition: var(--transition);
+  
 }
-
+ 
 .price-container {
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 0 1rem 0.5rem;
 }
-
+ 
 .itemPrice {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--teal);
 }
-
+ 
 .saleCurrency {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--ink-soft);
 }
-
+ 
 .WishlistBtn{
   text-align: end;
   cursor: pointer;
 }
-
-
-
-
+ 
+ 
+ 
+ 
 .addToCartBtn {
   background: var(--coral);
   color: #fff;
 }
-
+ 
 .addToCartBtn:hover {
   background: var(--coral-dark);
 }
-
+ 
 .addToCartBtn:active {
   transform: scale(0.98);
 }
-
-
+ 
+ 
 @media (max-width: 640px) {
   main {
     padding: 1.5rem 1rem;
   }
-
+ 
   main > div {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;

@@ -39,17 +39,12 @@
  */
 
 
-
-
+import { authenticaionPage } from './auth.js';
 import { catalogueData } from "./product.js";
-import { 
-itemInPurchasedCart,
-createProductCardHTML,
-updateUi ,
-buildUserMenu,
-xIcon,
-hamburgerIcon,
-} from "./helper.js";
+import { createProductCardHTML } from "./createProductCard.js";
+import {itemInPurchasedCart} from "./itemInPurchasedCart.js"
+import {headerUI,xIcon,hamburgerIcon,} from './headerUi.js'
+import { UserMenu,WishlistUi,} from "./helper.js";
 
 import {
 sectionBarToggler,
@@ -57,16 +52,24 @@ userMenuToggle,
 themeToggleFunction 
 } from "./toggler.js"
 
+const  objectOfElement= {
+headerElem:document.querySelector("header"),
+authScreen:document.querySelector("#authScreen"),
+orderedProduts:document.querySelector("#orderedProduts"),
+userMenu:document.querySelector("#userMenu"),
+mainElem:document.querySelector("main"),
+asideElem:document.querySelector("aside"),
+footerElem:document.querySelector("footer"),
 
-// Task 1
-const headerElem=document.querySelector("header");
-const orderedProduts=document.querySelector("#orderedProduts");
-const userMenu=document.querySelector("#userMenu");
-const mainElem=document.querySelector("main");
-const asideElem=document.querySelector("aside");
-const footerElem=document.querySelector("footer");
+} 
+
+const {headerElem,authScreen,orderedProduts,userMenu,mainElem,asideElem,footerElem}= objectOfElement
+
+
+
 
 //Task 2
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let totalCartItems = cart.length;
 const rawWishlist = localStorage.getItem("wishlist");
@@ -75,7 +78,17 @@ const savedTheme = localStorage.getItem('userTheme');
 if (savedTheme === 'dark') {
   document.body.classList.add('dark-mode');
 }
-
+ const userIsLogged= localStorage.getItem("userIsLogged")==='true'
+if(userIsLogged){
+ headerElem.classList.remove("showHeader")
+  mainElem.classList.remove("showMain")
+  asideElem.classList.remove("showAside")
+}else{
+ authenticaionPage(authScreen)
+  headerElem.classList.add("hideHeader")
+  mainElem.classList.add("hideMain")
+  asideElem.classList.add("hideAside")  
+}
 
 
 // Task 4
@@ -84,18 +97,16 @@ labeldiv.className="labeldiv"
 
 const input = document.createElement("input");
 input.type='search'
+input.className='searchInput'
 input.placeholder='What are you looking for?';
 
 const headerdiv=document.createElement("div");
 headerdiv.className='headerdiv'
-updateUi(headerdiv)
+headerUI(headerdiv)
 
 const label = document.createElement('label')
 label.textContent= "🔍 Search products..."
 const productDiv=document.createElement("div");
-
-
-
 
 
 //Task 6
@@ -104,8 +115,10 @@ labeldiv.append(label,input)
 mainElem.append(productDiv);
 
 
-buildUserMenu(userMenu)
-orderedProduts.innerHTML = itemInPurchasedCart();
+
+
+UserMenu(userMenu)
+itemInPurchasedCart(orderedProduts);
 productDiv.innerHTML = catalogueData.map(createProductCardHTML).join("");
 
 
@@ -128,6 +141,28 @@ if (event.target.closest(".headerToggle")){
   }}
 
 });
+
+//userMenu Listener
+userMenu.addEventListener("click",(event)=>{
+
+if(event.target.className===("signOutBtn"))
+{
+const querySignout=confirm("Are You Sure You want to sign Out")
+if(querySignout){
+localStorage.setItem("userIsLogged",String(false))
+window.location.reload()}
+}
+
+
+if(event.target.closest(".seeWishlist")){
+WishlistUi(productDiv)
+}
+
+})
+
+
+
+
 
 productDiv.addEventListener("click",(event)=>{
 //Add to cart 
@@ -152,29 +187,53 @@ cart.push(cartObj)
 totalCartItems = cart.length;
 localStorage.setItem("cart", JSON.stringify(cart));
 
-updateUi(headerdiv)
-itemInPurchasedCart()
-orderedProduts.innerHTML=itemInPurchasedCart()
+headerUI(headerdiv)
+itemInPurchasedCart(orderedProduts)
 }
 
-//Add to wishlist
-if(event.target.classList.contains("WishlistBtn")){
-const productCard = event.target.closest(".product");
-const itemName = productCard.querySelector("h2").textContent;
-const itemIndex = wishlist.indexOf(itemName);
 
-if (itemIndex === -1) {
-    wishlist.push(itemName);
+// Add/Remove from wishlist
+if (event.target.classList.contains("WishlistBtn")) {
+  const productCard = event.target.closest(".product");
+
+  const wishlistObj = {
+    itemName: productCard.querySelector("h2").textContent.trim(),
+    itemPrice: productCard.querySelector(".itemPrice").textContent.trim(),
+    saleCurrency: productCard.querySelector(".saleCurrency").textContent.trim(),
+    img: productCard.querySelector("img").src,
+    
+  };
+
+  // Check if item is already in wishlist by comparing itemName
+  const itemIndex = wishlist.findIndex(
+    (item) => item.itemName === wishlistObj.itemName
+  );
+
+  if (itemIndex === -1) {
+    wishlist.push(wishlistObj);
     event.target.textContent = "❤️";
   } else {
     wishlist.splice(itemIndex, 1);
     event.target.textContent = "🤍";
   }
+
+
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  UserMenu(userMenu);
 }
 
 
+
 })
+
+
+mainElem.addEventListener('click',(event)=>{
+  if(event.target.closest(".backToShoppingBtn")){
+  productDiv.innerHTML = catalogueData.map(createProductCardHTML).join("");
+  }
+})
+
+
 
 //Label Listener
 label.addEventListener("click", () => {
@@ -198,13 +257,15 @@ const indexToRemove = Number(event.target.dataset.index);
 cart.splice(indexToRemove,1)
 localStorage.setItem("cart", JSON.stringify(cart));
 totalCartItems = cart.length;
-updateUi(headerdiv);
-orderedProduts.innerHTML = itemInPurchasedCart();
+headerUI(headerdiv);
+itemInPurchasedCart(orderedProduts);
 
 }
 
 if(event.target.className==="backToShoppingBtn")sectionBarToggler(orderedProduts);
 });
+
+
 
 //Live Search Event Listener
 input.addEventListener('input', (event) => {

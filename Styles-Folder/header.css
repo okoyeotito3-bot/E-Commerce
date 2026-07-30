@@ -3,11 +3,11 @@
  * ============================================================================== */
 
 header {
+   display: flex;
   background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(12px);
   color: #fff;
   padding: 1rem 1.5rem;
-  display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
@@ -17,8 +17,10 @@ header {
   z-index: 50;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-
-/* ---------- Search (label + input) ---------- */
+header.hideHeader{
+  display: none;
+}
+/* ---------- Search (label + .searchInput) ---------- */
 .labeldiv {
   display: flex;
   align-items: center;
@@ -44,11 +46,11 @@ label:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-input {
+.searchInput {
   display: none;
 }
 
-input.show {
+.searchInput.show {
   display: block;
   padding: 0.5rem 1rem;
   border: 1px solid var(--line);
@@ -61,7 +63,7 @@ input.show {
   max-width: 220px;
 }
 
-input:focus {
+.searchInput:focus {
   border-color: var(--coral);
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
 }
@@ -178,7 +180,7 @@ input:focus {
     text-align: center;
   }
 
-  input.show {
+  .searchInput.show {
     max-width: none;
     flex: 1 1 100%;
   }

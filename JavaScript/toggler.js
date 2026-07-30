@@ -11,6 +11,10 @@ const isTheme = document.body.classList.toggle('dark-mode');
 localStorage.setItem('userTheme',isTheme ? 'dark':'light' ) 
 }
 
+
+
+
+
 export {
  sectionBarToggler,userMenuToggle,themeToggleFunction
 }
