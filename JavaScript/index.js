@@ -37,7 +37,7 @@
  *     double-click theme switching.
  * ==============================================================================
  */
-localStorage.clear()
+
 
 import { authenticaionPage } from './auth.js';
 import { catalogueData } from "./product.js";
