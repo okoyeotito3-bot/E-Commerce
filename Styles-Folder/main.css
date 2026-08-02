@@ -1,7 +1,24 @@
+/* ==========================================================================
+   main.css
+   Single entry point for OtikasXpress. Link only this file from index.html:
+     <link rel="stylesheet" href="css/main.css">
+   Import order matters: tokens/reset first, layout next, then components.
+   ========================================================================== */
+
+@import url('./variables.css');
 @import url('./base.css');
-@import url('./header.css');
-@import url('./cart.css');
-@import url('./products.css');
-@import url('./userMenu.css');
 @import url('./auth.css');
+@import url('./header.css');
+@import url('./menu.css');
+@import url('./account-pages.css');
+@import url('./product-card.css');
+@import url('./cart-drawer.css');
 @import url('./wishlist.css');
+
+/* ==========================================================================
+   Cross-component responsive tweaks that don't belong to a single file
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  main { padding: 10px 14px 48px; }
+}

@@ -1,187 +1,136 @@
-/* ==============================================================================
- * 2. GLASSMORPHISM HEADER & NAVIGATION
- * ============================================================================== */
+/* ==========================================================================
+   header.css
+   The store header: .labeldiv (search trigger + input) and .headerdiv
+   (rendered by headerUI() in headerUi.js) containing the brand name,
+   cart counter, and the hamburger/close toggle button.
+   ========================================================================== */
 
-header {
-   display: flex;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(12px);
-  color: #fff;
-  padding: 1rem 1.5rem;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-header.hideHeader{
-  display: none;
-}
-/* ---------- Search (label + .searchInput) ---------- */
+
 .labeldiv {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  flex: 0 1 auto;
-  order: 2; /* search sits after branding on desktop */
+  gap: 10px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  transition: background-color var(--dur-slow) var(--ease-standard);
 }
 
-label {
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 0.875rem;
+.labeldiv label {
+  font-size: 13.5px;
   font-weight: 500;
+  color: var(--color-text-muted);
   cursor: pointer;
-  transition: var(--transition);
-  user-select: none;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
   white-space: nowrap;
 }
 
-label:hover {
-  background: rgba(255, 255, 255, 0.2);
+.labeldiv label:hover {
+  background: var(--color-surface-3);
+  color: var(--color-accent);
 }
 
 .searchInput {
-  display: none;
+  flex: 1;
+  max-width: 0;
+  opacity: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 14px;
+  transition: max-width var(--dur-slow) var(--ease-standard),
+              opacity var(--dur-base) var(--ease-standard),
+              padding var(--dur-slow) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard);
 }
 
 .searchInput.show {
-  display: block;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  max-width: 480px;
+  opacity: 1;
+  padding: 10px 16px;
+  border: 1.5px solid var(--color-border);
+}
+
+.searchInput.show:focus {
   outline: none;
-  font-size: 0.875rem;
-  background: #fff;
-  transition: var(--transition);
-  width: 100%;
-  max-width: 220px;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-soft);
 }
 
-.searchInput:focus {
-  border-color: var(--coral);
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
-}
+.searchInput::placeholder { color: var(--color-text-subtle); }
 
-/* ---------- Branding + cart + toggle (built by updateUi) ---------- */
+/* ---- headerdiv, rebuilt by headerUI() ---- */
 .headerdiv {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  flex: 1 1 auto;
-  min-width: 0;
-  order: 1;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
 }
 
 .appName {
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 20px;
   font-weight: 700;
-  color: #fff;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.appName::before {
-  content: "◆ ";
-  color: var(--coral);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .totalInCart {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8125rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13.5px;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
   border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #fff;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.totalInCart::before {
-  content: "🛒";
-  font-size: 0.875rem;
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
 }
 
 .totalInCart:hover {
-  background: var(--coral);
-  border-color: var(--coral);
+  background: var(--color-accent-soft-strong);
   transform: translateY(-1px);
 }
 
+.totalInCart:active { transform: translateY(0); }
 
-.headerToggle{
-  display: inline-flex; 
+.headerToggle {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-sm);
-  cursor: pointer;
-  color: #fff;
-  flex-shrink: 0;
-  transition: var(--transition);
+  color: var(--color-text);
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-base) var(--ease-spring);
 }
 
-.headerToggle:hover {
-  background: rgba(255, 255, 255, 0.1);
+button.headerToggle:hover {
+  background: var(--color-surface-3);
 }
 
-.headerToggle{
-  width: 22px;
-  height: 22px;
+.headerToggle svg,
+svg.headerToggle {
+  transition: transform var(--dur-base) var(--ease-spring);
 }
 
-/* ---------- Tablet ---------- */
-@media (max-width: 900px) {
-  .appName {
-    font-size: 1.1rem;
-  }
+button.headerToggle:active svg {
+  transform: rotate(90deg);
 }
 
-/* ---------- Mobile ---------- */
 @media (max-width: 640px) {
-  header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-  }
-
-  .headerdiv {
-    order: 1;
-    width: 100%;
-    justify-content: space-between;
-  }
-
- 
-
-  .labeldiv {
-    order: 2;
-    width: 100%;
-    flex-wrap: wrap;
-  }
-
-  label {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-
-  .searchInput.show {
-    max-width: none;
-    flex: 1 1 100%;
-  }
+  .labeldiv { padding: 8px 14px; }
+  .headerdiv { padding: 12px 14px; }
+  .appName { font-size: 17px; }
+  .totalInCart { font-size: 12.5px; padding: 6px 12px; }
 }

@@ -1,12 +1,12 @@
-function sectionBarToggler(element) {
-  if (element) element.classList.toggle("show");
+export function sectionBarToggler(element) {
+element.classList.toggle("show");
 }
 
-function userMenuToggle(element) {
+export function userMenuToggle(element) {
  element.classList.toggle("showuserMenu");
 }
 
-function themeToggleFunction(){
+export function themeToggleFunction(){
 const isTheme = document.body.classList.toggle('dark-mode');
 localStorage.setItem('userTheme',isTheme ? 'dark':'light' ) 
 }
@@ -15,6 +15,4 @@ localStorage.setItem('userTheme',isTheme ? 'dark':'light' )
 
 
 
-export {
- sectionBarToggler,userMenuToggle,themeToggleFunction
-}
+ 

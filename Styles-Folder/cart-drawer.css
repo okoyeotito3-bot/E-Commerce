@@ -1,0 +1,202 @@
+/* ==========================================================================
+   cart-drawer.css
+   <aside> acts as the backdrop/overlay; #orderedProduts is the sliding
+   drawer panel populated by itemInPurchasedCart() in itemInPurchasedCart.js.
+   Both are toggled via the "show" class (sectionBarToggler in toggler.js).
+   ========================================================================== */
+
+aside {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: var(--color-overlay);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease-standard),
+              visibility var(--dur-base) var(--ease-standard);
+}
+
+aside.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#orderedProduts {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 75;
+  width: 380px;
+  max-width: 92vw;
+  height: 79vh;
+  border-radius: 20px 0px 0px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 20px 20px;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform var(--dur-slow) var(--ease-standard),
+              background-color var(--dur-slow) var(--ease-standard);
+}
+
+#orderedProduts.show {
+  transform: translateX(0);
+}
+
+.cartProducts {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  animation: cartItemIn var(--dur-base) var(--ease-standard);
+}
+
+@keyframes cartItemIn {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.cartProducts img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  grid-row: 1 / 3;
+}
+
+.cartProducts h1 {
+  grid-column: 2;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cartProducts .price-container {
+  grid-column: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.cartProducts .itemPrice {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.cartProducts .saleCurrency {
+  font-size: 11px;
+  color: var(--color-text-subtle);
+  font-weight: 600;
+}
+
+.orderedProductQuantity {
+  grid-column: 2;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+}
+
+.removefromcartBtn {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+  border-radius: var(--radius-pill);
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.removefromcartBtn:hover {
+  background: var(--color-danger);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.checkout-container {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cart-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+.cart-total strong {
+  color: var(--color-text);
+  font-size: 17px;
+}
+
+.checkoutBtn {
+  width: 100%;
+  padding: 13px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-accent);
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
+}
+
+.checkoutBtn:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+/* Empty cart state */
+.empty-cart {
+  margin: auto;
+  text-align: center;
+  padding: 40px 12px;
+}
+
+.empty-cart h1 {
+  font-size: 17px;
+  margin-bottom: 18px;
+  color: var(--color-text-muted);
+}
+
+.backToShoppingBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+  transition: background-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
+}
+
+.backToShoppingBtn:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  #orderedProduts { width: 100%; padding: 18px 16px; }
+}

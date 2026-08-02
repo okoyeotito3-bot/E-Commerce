@@ -1,0 +1,104 @@
+/* ==========================================================================
+   variables.css
+   Design tokens for OtikasXpress. Light theme lives on :root.
+   Dark "Midnight" theme is applied via body.dark-mode, matching the
+   actual toggle in toggler.js -> document.body.classList.toggle('dark-mode').
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---- Brand accent (Blue) ---- */
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-accent-active: #1e40af;
+  --color-accent-soft: #dbeafe;
+  --color-accent-soft-strong: #bfdbfe;
+  --color-on-accent: #ffffff;
+
+  /* ---- Surfaces & backgrounds ---- */
+  --color-bg: #f6f8fb;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f5f9;
+  --color-surface-3: #e9eef5;
+  --color-overlay: rgba(15, 23, 42, 0.45);
+
+  /* ---- Borders ---- */
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  /* ---- Text ---- */
+  --color-text: #0f172a;
+  --color-text-muted: #5b6b84;
+  --color-text-subtle: #94a3b8;
+  --color-text-on-accent: #ffffff;
+
+  /* ---- Semantic ---- */
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+  --color-warning: #d97706;
+  --color-warning-soft: #fef3c7;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 16px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.14);
+  --shadow-accent: 0 10px 25px rgba(37, 99, 235, 0.25);
+
+  /* ---- Radii ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* ---- Type ---- */
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 420ms;
+}
+
+/* ==========================================================================
+   Midnight Dark Theme
+   ========================================================================== */
+body.dark-mode {
+  --color-accent: #3b82f6;
+  --color-accent-hover: #60a5fa;
+  --color-accent-active: #93c5fd;
+  --color-accent-soft: rgba(59, 130, 246, 0.16);
+  --color-accent-soft-strong: rgba(96, 165, 250, 0.28);
+  --color-on-accent: #071224;
+
+  --color-bg: #0a0f1c;
+  --color-surface: #121a2b;
+  --color-surface-2: #182236;
+  --color-surface-3: #202c42;
+  --color-overlay: rgba(2, 6, 15, 0.65);
+
+  --color-border: #263248;
+  --color-border-strong: #34435e;
+
+  --color-text: #e7edf7;
+  --color-text-muted: #9aabc4;
+  --color-text-subtle: #6c7d99;
+  --color-text-on-accent: #071224;
+
+  --color-success: #22c55e;
+  --color-success-soft: rgba(34, 197, 94, 0.16);
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.16);
+  --color-warning: #fbbf24;
+  --color-warning-soft: rgba(251, 191, 36, 0.16);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 55px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 10px 28px rgba(59, 130, 246, 0.35);
+}

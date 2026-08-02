@@ -1,10 +1,10 @@
-function authenticaionPage(element) {
+export function authenticaionPage(element) {
 
 let userIsLogged = localStorage.getItem("userIsLogged")==='true'
 let userIsRegsitered= localStorage.getItem("userIsRegistered")==="true"
 
-const userPassword = Number(localStorage.getItem("userPassword"))
-const userName=localStorage.getItem("userFullName")
+const userPassword = localStorage.getItem("userPassword")
+const userName=localStorage.getItem("userName")
 
   if (!userIsLogged && !userIsRegsitered) {
     element.innerHTML = `
@@ -18,16 +18,17 @@ const userName=localStorage.getItem("userFullName")
             
             <!-- Full Name Input -->
             <div class="input-group">
-                <label for="regFullNameInput" class="input-label">Full Name</label>
+                <label for="regUserNameInput" class="input-label">User Name</label>
                 <input 
                     type="text" 
-                    id="regFullNameInput" 
+                    id="regUserNameInput" 
                     class="form-input" 
-                    placeholder="Enter your full name"
+                    placeholder="Enter your User Name"
                     autocomplete="name" 
                     required
                 >
             </div>
+
 
 
             <!-- Password Input -->
@@ -82,15 +83,12 @@ const userName=localStorage.getItem("userFullName")
     </div>
 `;
 
-    // Query elements specifically for Registration Form
-    
-    const regFullNameInput = element.querySelector("#regFullNameInput");
-    const passwordInput = element.querySelector("#regPasswordInput");
-    const toggleRegPasswordBtn = element.querySelector("#toggleRegPasswordBtn");
-    const confirmPasswordInput = element.querySelector("#confirmPasswordInput");
-    const toggleConfirmPasswordBtn = element.querySelector("#toggleConfirmPasswordBtn");
-    const registerBtn = element.querySelector("#registerBtn");
-    const loginLink = element.querySelector("#loginLink");
+
+   
+const regUserNameInput = element.querySelector("#regUserNameInput");
+const passwordInput = element.querySelector("#regPasswordInput");
+const confirmPasswordInput = element.querySelector("#confirmPasswordInput");
+
 const authForm =element.querySelector(".auth-form")
 authForm.addEventListener("submit",(e)=>{
     e.preventDefault();})
@@ -112,7 +110,9 @@ if(passwordInput.type==='password' && confirmPasswordInput.type==="password"){
 }
 }
 
-
+if(event.target.closest("#loginLink") && !userIsRegsitered){
+ alert("This Device is not registered ,please procced to SignUp")
+}
 
 
 if(event.target.id==='registerBtn'){
@@ -122,7 +122,12 @@ if(event.target.id==='registerBtn'){
     }
 
 
-localStorage.setItem("userFullName",regFullNameInput.value.toLowerCase().trim())
+if( passwordInput.value.length<6){
+  alert("Please Use Up To 6 keyWords")  
+  return;
+}
+
+localStorage.setItem("userName",regUserNameInput.value.replace(/\s/g, ''))
 localStorage.setItem("userPassword",String(passwordInput.value))
 localStorage.setItem("userIsRegistered",String(true))
 localStorage.setItem("userIsLogged",String(true))
@@ -192,12 +197,10 @@ window.location.reload()
     </div>
   `;
 
-    // Query elements specifically for Login Form
-    const loginNameInput = element.querySelector("#loginNameInput");
-    const loginPasswordInput = element.querySelector("#loginPasswordInput");
-    const toggleLoginPasswordBtn = element.querySelector("#toggleLoginPasswordBtn");
-    const loginBtn = element.querySelector("#loginBtn");
-    const signupLink = element.querySelector("#signupLink");
+
+const loginNameInput = element.querySelector("#loginNameInput");
+const loginPasswordInput = element.querySelector("#loginPasswordInput");
+//const signupLink = element.querySelector("#signupLink");
 
 
 const authForm =element.querySelector(".auth-form")
@@ -208,7 +211,6 @@ authForm.addEventListener("submit",(e)=>{
 element.addEventListener("click",(event)=>{
 
 if(event.target.id==="toggleLoginPasswordBtn"){
-
 if(loginPasswordInput.type==='password'){
 loginPasswordInput.type='text'
 event.target.textContent="🙈"
@@ -218,22 +220,23 @@ event.target.textContent="👁️"
 }}
 
 if(event.target.id==='loginBtn'){
-    console.log(userName)
-    console.log(userPassword)
-   
-
-const checkingUserName= loginNameInput.value.toLowerCase().trim()===userName 
-const checkingPassword=Number(loginPasswordInput.value)===userPassword;
-
+const checkingUserName= loginNameInput.value.toLowerCase().replace(/\s/g, '')===userName.toLowerCase()
+const checkingPassword=loginPasswordInput.value===userPassword;
 if(checkingUserName && checkingPassword){
 localStorage.setItem("userIsLogged",String(true))
 window.location.reload()
 }else{
 alert('wrong credentials')
+}}
+
+if(event.target.closest("#signupLink") && userIsRegsitered ){
+const warnMsg=
+confirm("Warning: You already have an account. Proceeding will overwrite your saved data. Continue?")
+if(warnMsg){
+localStorage.clear()
+window.location.reload()
 }
 }
-
-
 
 
 
@@ -250,4 +253,3 @@ alert('wrong credentials')
 
 
 }
-export { authenticaionPage };

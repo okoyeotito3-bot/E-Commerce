@@ -20,8 +20,9 @@ const hamburgerIcon = `
 function headerUI(element){
 if (!element) return;
 const storedItemCount = JSON.parse(localStorage.getItem("cart")) || []
-let totalCartItems = storedItemCount.length;
-
+let totalCartItems = storedItemCount.reduce((acc, item) => {
+  return acc + (item.quantity || 1);
+}, 0);
 element.innerHTML=
 `<div class='appName'>
    OtikasXpress
