@@ -18,11 +18,38 @@
   <section id="userMenu"></section>
   <main></main>
   <aside>🛒</aside>
-   <footer>
-<i class="fa-solid fa-house"></i>
-<i class="fa-solid fa-gear"></i>  
- <i class="fa-solid fa-heart"></i> 
-   </footer>
+   <footer class="footer-nav">
+  <div class="nav-item" data-page="home">
+    <i class="fa-solid fa-house"></i>
+    <span>Home</span>
+  </div>
+
+  <div class="nav-item" data-page="search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span>Search</span>
+  </div>
+
+  <div class="nav-item" data-page="cart">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="badge">2</span>
+  </div>
+
+  <div class="nav-item" data-page="wishlist">
+    <i class="fa-solid fa-heart"></i>
+    <span>Wishlist</span>
+  </div>
+
+  <div class="nav-item" data-page="profile">
+    <i class="fa-solid fa-user"></i>
+    <span>Profile</span>
+  </div>
+
+  <div class="nav-item" data-page="settings">
+    <i class="fa-solid fa-gear"></i>
+    <span>Settings</span>
+  </div>
+</footer>
 
   <!-- JavaScript folder import (fixed path) -->
   <script type="module" src="./JavaScript/index.js"></script>
