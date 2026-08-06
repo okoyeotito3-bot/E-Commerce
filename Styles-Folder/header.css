@@ -128,7 +128,9 @@ button.headerToggle:active svg {
   transform: rotate(90deg);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 576px) {
+  .headerToggle {display: none;}
+  .headerdiv{display: none;}
   .labeldiv { padding: 8px 14px; }
   .headerdiv { padding: 12px 14px; }
   .appName { font-size: 17px; }

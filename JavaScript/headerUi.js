@@ -5,18 +5,21 @@
 
 export function headerUI(element){
 if (!element) return;
-const storedItemCount = JSON.parse(localStorage.getItem("cart")) || []
-let totalCartItems = storedItemCount.reduce((acc, item) => {
-  return acc + (item.quantity || 1);
-}, 0);
+
+const cart = JSON.parse(localStorage.getItem("cart")) || []
+let totalCartItems = cart.length;
+
+
+
 element.innerHTML=
 `<div class='appName'>
    OtikasXpress
   </div>
 
   <div class="totalInCart">
-    Total Item In Cart
-    ${totalCartItems}     
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span>Cart</span>
+    <span class="badge">${totalCartItems}</span>   
  </div>
 
 <button class= "headerToggle" >

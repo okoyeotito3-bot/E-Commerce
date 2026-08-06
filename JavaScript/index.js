@@ -46,7 +46,7 @@ import {WishlistUi} from "./wishlistUi.js"
 import { UserMenu,settings,orders,helpAndSupport,aboutDeveloper} from "./menu.js";
 import {labelListener} from "./eventListeners.js"
 import {sectionBarToggler,userMenuToggle} from "./toggler.js"
-
+import {createFooter,getProfileDashboardHTML} from "./footer.js"
 const  objectOfElement= {
 headerElem:document.querySelector("header"),
 authScreen:document.querySelector("#authScreen"),
@@ -113,7 +113,7 @@ productDiv.setAttribute("id","productDiv")
 headerElem.append(labeldiv,headerdiv)
 labeldiv.append(label,input)
 mainElem.append(productDiv);
-
+createFooter(footerElem)
 
 
 
@@ -191,12 +191,12 @@ if(event.target.className==="order" && userMenu.classList.contains("showuserMenu
  orders(mainElem)
  history.pushState({ view: "orders" }, "", "#orders");
   userMenu.classList.remove("showuserMenu")
- document.querySelector(".headerToggle").innerHTML=hamburgerIcon
+ 
 }
 
 if(event.target.className==="settingsBtn" && userMenu.classList.contains("showuserMenu")){
  userMenu.classList.remove("showuserMenu")
- document.querySelector(".headerToggle").innerHTML=hamburgerIcon
+ 
 settings(mainElem)
 history.pushState({ view: "settings" }, "", "#settings");
 }
@@ -205,7 +205,7 @@ if(event.target.className==="helpBtn"  && userMenu.classList.contains("showuserM
 helpAndSupport(mainElem)
 history.pushState({ view: "help" }, "", "#help");
  userMenu.classList.remove("showuserMenu")
- document.querySelector(".headerToggle").innerHTML=hamburgerIcon
+ 
 }
 
 
@@ -213,7 +213,7 @@ if(event.target.className==="aboutDevBtn"  && userMenu.classList.contains("showu
  aboutDeveloper(mainElem)
 history.pushState({ view: "about" }, "", "#about");
   userMenu.classList.remove("showuserMenu")
- document.querySelector(".headerToggle").innerHTML=hamburgerIcon
+ 
 }
 
 
@@ -329,6 +329,15 @@ UserMenu(userMenu);}
  localStorage.setItem("cart", JSON.stringify(cart));
 headerUI(headerdiv);
 itemInPurchasedCart(orderedProduts);
+createFooter(footerElem);
+
+if (event.target.closest("#profileCloseBtn")) {
+  mainElem.innerHTML = "";
+  mainElem.appendChild(productDiv);
+  history.pushState({ view: "home" }, "", "#home");
+}
+
+
 });
 
 
@@ -356,6 +365,7 @@ cart.splice(indexToRemove,1)
 localStorage.setItem("cart", JSON.stringify(cart));
 totalCartItems = cart.length;
 headerUI(headerdiv);
+createFooter(footerElem);
 itemInPurchasedCart(orderedProduts);
 productDiv.innerHTML = catalogueData.map(createProductCardHTML).join("");
 }
@@ -395,20 +405,44 @@ productDiv.innerHTML = searchResults.map(createProductCardHTML).join("");
 
 footerElem.addEventListener("click",(event)=>{
 
-  if(event.target.classList.contains("fa-house")){
+  if(event.target.closest('#home')){
 mainElem.innerHTML = "";
 mainElem.appendChild(productDiv);
 history.pushState({ view: "home" }, "", "#home");
+if(labeldiv.classList.contains("hidelabeldiv")){
+labeldiv.classList.remove("hidelabeldiv")
 }
-if(event.target.classList.contains("fa-gear")){
+return
+}
+
+ labeldiv.classList.add("hidelabeldiv")
+
+if(event.target.closest('#cart')){
+  mainElem.innerHTML = "";
+  mainElem.innerHTML = orderedProduts.innerHTML
+  history.pushState({ view: "cart" }, "", "#cart");
+  itemInPurchasedCart(orderedProduts);
+}
+
+if(event.target.closest('#wishlist')){
+WishlistUi(mainElem)
+history.pushState({ view: "wishlist" }, "", "#wishlist");
+}
+
+if(event.target.closest('#profile')){
+ getProfileDashboardHTML(mainElem)
+  history.pushState({ view: "profile" }, "", "#profile");
+}
+
+
+
+
+if(event.target.closest('#settings')){
   settings(mainElem)
   history.pushState({ view: "settings" }, "", "#settings"); 
 }
 
-if(event.target.classList.contains("fa-heart")){
-WishlistUi(mainElem)
-history.pushState({ view: "wishlist" }, "", "#wishlist");
-}
+
 
 })
 
@@ -417,7 +451,7 @@ if(event.key === "Escape"){
 
 if(userMenu.classList.contains("showuserMenu")){
 userMenu.classList.remove("showuserMenu")
-document.querySelector(".headerToggle").innerHTML=hamburgerIcon
+
 }
 
 if(orderedProduts.classList.contains("show")){
