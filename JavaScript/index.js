@@ -1,4 +1,3 @@
-
 /**
  * ==============================================================================
  *                         E-COMMERCE WEB APPLICATION
@@ -42,11 +41,11 @@ import { authenticaionPage } from './auth.js';
 import { catalogueData } from "./product.js";
 import { createProductCardHTML } from "./createProductCard.js";
 import {itemInPurchasedCart} from "./itemInPurchasedCart.js"
-import {headerUI,xIcon,hamburgerIcon,} from './headerUi.js'
+import {headerUI,} from './headerUi.js'
 import {WishlistUi} from "./wishlistUi.js"
 import { UserMenu,settings,orders,helpAndSupport,aboutDeveloper} from "./menu.js";
 import {labelListener} from "./eventListeners.js"
-import {sectionBarToggler,userMenuToggle,themeToggleFunction} from "./toggler.js"
+import {sectionBarToggler,userMenuToggle} from "./toggler.js"
 
 const  objectOfElement= {
 headerElem:document.querySelector("header"),
@@ -71,10 +70,12 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let totalCartItems = cart.length;
 const rawWishlist = localStorage.getItem("wishlist");
 const wishlist = rawWishlist ? JSON.parse(rawWishlist) : []; 
+
 const savedTheme = localStorage.getItem('userTheme');
-if (savedTheme === 'dark') {
+if (savedTheme === 'dark-mode') {
   document.body.classList.add('dark-mode');
 }
+
  const userIsLogged= localStorage.getItem("userIsLogged")==='true'
 if(userIsLogged){
   authScreen.classList.add("hideAuthScreen")  
@@ -162,11 +163,7 @@ if (event.target.classList.contains("totalInCart")){
 };
 if (event.target.closest(".headerToggle")){
   userMenuToggle(userMenu)
-  if(userMenu.classList.contains("showuserMenu")){
-    event.target.innerHTML=xIcon
-  }else{
-    event.target.innerHTML=hamburgerIcon
-  }}
+}
 
 });
 
@@ -174,11 +171,20 @@ if (event.target.closest(".headerToggle")){
 
 userMenu.addEventListener("click",(event)=>{
 
+if(event.target.closest(".closeMenuBtn")){
+  userMenu.classList.remove("showuserMenu")
+ 
+ 
+}
+
+if(event.target.closest(".menu-actions") ){
+labeldiv.classList.add("hidelabeldiv")
+}
+
+
 if(event.target.closest(".seeWishlist") && userMenu.classList.contains("showuserMenu")){
 WishlistUi(mainElem)
 history.pushState({ view: "wishlist" }, "", "#wishlist");
- userMenu.classList.remove("showuserMenu")
- document.querySelector(".headerToggle").innerHTML=hamburgerIcon
 }
 
 if(event.target.className==="order" && userMenu.classList.contains("showuserMenu")){
@@ -354,7 +360,14 @@ itemInPurchasedCart(orderedProduts);
 productDiv.innerHTML = catalogueData.map(createProductCardHTML).join("");
 }
 
-if(event.target.className==="backToShoppingBtn")sectionBarToggler(orderedProduts);
+if(event.target.className==="backToShoppingBtn"){
+
+orderedProduts.classList.remove("show")
+mainElem.innerHTML = "";
+mainElem.appendChild(productDiv);
+history.pushState({ view: "home" }, "", "#home");
+};
+
 });
 
 
@@ -375,9 +388,29 @@ productDiv.innerHTML = searchResults.map(createProductCardHTML).join("");
 });
 
 
-//Toogling Theme Event Listener
-window.addEventListener('dblclick',themeToggleFunction);
 
+
+
+
+
+footerElem.addEventListener("click",(event)=>{
+
+  if(event.target.classList.contains("fa-house")){
+mainElem.innerHTML = "";
+mainElem.appendChild(productDiv);
+history.pushState({ view: "home" }, "", "#home");
+}
+if(event.target.classList.contains("fa-gear")){
+  settings(mainElem)
+  history.pushState({ view: "settings" }, "", "#settings"); 
+}
+
+if(event.target.classList.contains("fa-heart")){
+WishlistUi(mainElem)
+history.pushState({ view: "wishlist" }, "", "#wishlist");
+}
+
+})
 
 window.addEventListener("keydown", (event) => {
 if(event.key === "Escape"){

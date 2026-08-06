@@ -11,7 +11,7 @@
   z-index: 60;
   width: 300px;
   max-width: 86vw;
-  height: 79vh;
+  height: 100vh;
   display: flex;
   border-radius: 20px 0px 0px 20px;
   flex-direction: column;
@@ -28,7 +28,17 @@
 #userMenu.showuserMenu {
   transform: translateX(0);
 }
-
+.closeMenuBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  color: var(--color-text-subtle);
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+.closeMenuBtn:hover {
+  color: var(--color-text);
+}
 .menu-header {
   display: flex;
   align-items: center;

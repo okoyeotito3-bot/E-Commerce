@@ -7,6 +7,13 @@ const wishlistCount= wishlist.length;
 
 
 element.innerHTML = `
+  <span class="closeMenuBtn">
+  <svg class="headerToggle" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+    stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18" style="pointer-events: none;"></line>
+      <line x1="6" y1="6" x2="18" y2="18" style="pointer-events: none;"></line>
+  </svg>
+  </span>
   <div class="menu-header">
    <span class="avatar-icon">👤</span>
     <span class="username-display">Hello ${userName}</span>
@@ -88,7 +95,7 @@ element.innerHTML = `
         <select id="theme-select" class="settings-control" onchange="changeTheme(this.value)">
           <option value="system">System Default</option>
           <option value="light">Light Mode</option>
-          <option value="dark">Dark Mode</option>
+          <option value="dark-mode">Dark Mode</option>
         </select>
       </li>
 
@@ -151,6 +158,24 @@ element.innerHTML = `
   </section>
 </div>
 `;
+
+element.addEventListener("change", (event) => {
+
+  
+if(event.target.id==='theme-select' && event.target.value==='light'){
+document.body.classList.remove('dark-mode')
+localStorage.setItem('userTheme','light' ) 
+}
+
+if(event.target.id==='theme-select' && event.target.value==='dark-mode'){
+ document.body.classList.add('dark-mode') 
+ localStorage.setItem('userTheme','dark-mode' ) 
+}
+
+
+})
+
+
 }
 
 export function orders(element){

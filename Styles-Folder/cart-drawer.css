@@ -29,7 +29,7 @@ aside.show {
   z-index: 75;
   width: 380px;
   max-width: 92vw;
-  height: 79vh;
+  height: 100vh;
   border-radius: 20px 0px 0px 20px;
   display: flex;
   flex-direction: column;

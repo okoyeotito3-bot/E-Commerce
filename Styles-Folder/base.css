@@ -124,7 +124,8 @@ footer {
 header.hideHeader,
 main.hideMain,
 aside.hideAside ,
-#authScreen.hideAuthScreen
+#authScreen.hideAuthScreen,
+.labeldiv.hidelabeldiv
 {
   display: none !important;
 }
