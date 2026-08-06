@@ -159,3 +159,81 @@ aside.hideAside ,
   color: var(--color-text-subtle);
   font-size: 15px;
 }
+
+.popUpDiv {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: var(--color-surface);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 280px;
+  max-width: 90vw;
+  text-align: center;
+  font-family: var(--font-body);
+}
+
+.popUpMessage {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.acceptBtn,
+.rejectBtn {
+  flex: 1;
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
+}
+
+.acceptBtn {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.acceptBtn:hover {
+  background: var(--color-accent-hover);
+}
+
+.acceptBtn:active {
+  background: var(--color-accent-active);
+  transform: scale(0.97);
+}
+
+.rejectBtn {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.rejectBtn:hover {
+  background: var(--color-surface-3);
+  border-color: var(--color-border-strong);
+}
+
+.rejectBtn:active {
+  transform: scale(0.97);
+}

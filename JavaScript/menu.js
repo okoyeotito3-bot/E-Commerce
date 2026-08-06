@@ -133,7 +133,7 @@ element.innerHTML = `
   <section class="settings-group">
     <h3 class="group-title">Notifications</h3>
     <ul class="settings-list">
-      <li class="settings-item">
+      <li class="settings-item" >
         <div class="item-info">
           <span class="item-title">Order Updates</span>
           <span class="item-subtitle">Shipping status, delivery tracking</span>
@@ -160,7 +160,7 @@ element.innerHTML = `
   <!-- SECTION 4: ACCOUNT ACTIONS -->
   <section class="settings-group">
         <button class='signOutBtn'>Log Out</button>
-        <button class="item-title">Delete Account</button>
+        <button class="item-title" id='deleteAcctBtn'>Delete Account</button>
   </section>
 </div>
 `;

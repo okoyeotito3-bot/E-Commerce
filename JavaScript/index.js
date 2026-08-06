@@ -44,7 +44,7 @@ import {itemInPurchasedCart} from "./itemInPurchasedCart.js"
 import {headerUI,} from './headerUi.js'
 import {WishlistUi} from "./wishlistUi.js"
 import { UserMenu,settings,orders,helpAndSupport,aboutDeveloper} from "./menu.js";
-import {labelListener} from "./eventListeners.js"
+import {labelListener,popUp} from "./eventListeners.js"
 import {sectionBarToggler,userMenuToggle} from "./toggler.js"
 import {createFooter,getProfileDashboardHTML} from "./footer.js"
 
@@ -225,14 +225,19 @@ history.pushState({ view: "about" }, "", "#about");
 }
 
 
-if(event.target.className===("signOutBtn"))
-{
-let  querySignout=confirm("Are You Sure You want to sign Out")
-if(querySignout){
-localStorage.setItem("userIsLogged",String(false))
-window.location.reload()}
-}
+if (event.target.className === "signOutBtn") {
+  const { popUpDiv, acceptBtn, rejectBtn } = popUp('Are You Sure You want to Sign Out?', 'Yes', 'No');
 
+  acceptBtn.addEventListener("click", () => {
+   localStorage.setItem("userIsLogged",String(false))
+  window.location.reload()
+    popUpDiv.remove();
+  });
+
+  rejectBtn.addEventListener("click", () => {
+    popUpDiv.remove();
+  });
+}
 })
 
 mainElem.addEventListener("click", (event) => {
@@ -374,6 +379,51 @@ if(event.target.closest("#payment-methods")){
   if(event.target.closest("#security-password")){
     securityPassword(mainElem)}
     
+if(event.target.className==="signOutBtn"){
+  const { popUpDiv, acceptBtn, rejectBtn } = popUp('Are You Sure You want to Sign Out?', 'Yes', 'No');
+
+  acceptBtn.addEventListener("click", () => {
+   localStorage.setItem("userIsLogged",String(false))
+  window.location.reload()
+    popUpDiv.remove();
+  });
+
+  rejectBtn.addEventListener("click", () => {
+    popUpDiv.remove();
+  });
+}
+
+if(event.target.id==='deleteAcctBtn'){
+const { popUpDiv, acceptBtn, rejectBtn } = popUp('Are You Sure You want to Delete Your Account?', 'Yes', 'No');
+
+  acceptBtn.addEventListener("click", () => {
+  localStorage.clear()
+  window.location.reload()
+    popUpDiv.remove();
+  });
+
+  rejectBtn.addEventListener("click", () => {
+    popUpDiv.remove();
+  });
+
+}
+
+if(event.target.id==='notify-orders' ){
+if(event.target.checked){
+const { popUpDiv, acceptBtn, rejectBtn } = popUp('Where do you want to receive order Notifications?', 'Email','SMS');
+
+acceptBtn.addEventListener("click", () => {
+ 
+    popUpDiv.remove();
+  });
+  rejectBtn.addEventListener("click", () => {
+ 
+    popUpDiv.remove();
+  });
+}
+  
+}
+
 
 });
 
