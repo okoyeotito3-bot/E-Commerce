@@ -47,6 +47,14 @@ import { UserMenu,settings,orders,helpAndSupport,aboutDeveloper} from "./menu.js
 import {labelListener} from "./eventListeners.js"
 import {sectionBarToggler,userMenuToggle} from "./toggler.js"
 import {createFooter,getProfileDashboardHTML} from "./footer.js"
+
+
+//settings
+
+import { editProfile,savedAddresses ,paymentMethods,securityPassword,} from "./setting.js";
+
+
+
 const  objectOfElement= {
 headerElem:document.querySelector("header"),
 authScreen:document.querySelector("#authScreen"),
@@ -338,22 +346,38 @@ if (event.target.closest("#profileCloseBtn")) {
 }
 
 
+
+
+
+//setting event listener
+
+if(event.target.closest('#backBtn')){
+  settings(mainElem)
+  history.pushState({ view: "settings" }, "", "#settings"); 
+}
+
+if(event.target.closest('#account-security')){
+  editProfile(mainElem);
+}
+
+
+if(event.target.closest("#saved-addresses")){
+ savedAddresses(mainElem )
+}
+
+if(event.target.closest("#payment-methods")){
+  console.log("payment method clicked") 
+  paymentMethods(mainElem) }
+
+
+
+  if(event.target.closest("#security-password")){
+    securityPassword(mainElem)}
+    
+
 });
 
 
-
-
-
-
-
-
-
-
-
-//(Aside Element)asideElem Listener
-asideElem.addEventListener('click', () => {
-sectionBarToggler(orderedProduts);
-});
 
 
 //Event Listener for Items already ordered

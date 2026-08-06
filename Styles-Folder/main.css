@@ -15,6 +15,7 @@
 @import url('./cart-drawer.css');
 @import url('./wishlist.css');
 @import url('./footer.css');
+@import url('./setting.css');
 
 /* ==========================================================================
    Cross-component responsive tweaks that don't belong to a single file

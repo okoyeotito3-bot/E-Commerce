@@ -34,15 +34,14 @@ element.innerHTML = `
 }
 
 export function getProfileDashboardHTML(element) {
-  let profilephoto = localStorage.getItem("profilephoto");
-  if (profilephoto) {
-    profilephoto = `<label for="profilePhotoInput" class="profile-photo-label">
-             <img src="${profilephoto}" alt="Profile Photo" class="profile-photo" />
-            </label>`;
-  } else {
-    profilephoto = `<label for="profilePhotoInput" class="profile-photo-label">
-             <i class="fa-solid fa-user"></i>
-            </label>`;
+  const userName = localStorage.getItem("userName") || "User";
+
+  function getAvatarInnerHTML() {
+    const photo = localStorage.getItem("profilephoto");
+    if (photo) {
+      return `<img src="${photo}" alt="Profile Photo" class="profile-photo" />`;
+    }
+    return `<i class="fa-solid fa-user"></i>`;
   }
 
   element.innerHTML = `
@@ -56,11 +55,13 @@ export function getProfileDashboardHTML(element) {
 
       <div class="profile-user-info">
         <div class="profile-avatar">
-          ${profilephoto}
+          <label for="profilePhotoInput" class="profile-photo-label">
+            ${getAvatarInnerHTML()}
+          </label>
           <input type="file" id="profilePhotoInput" accept="image/*" style="display: none;" />
         </div>
 
-        <h3 class="profile-name">Otito</h3>
+        <h3 class="profile-name">${userName}</h3>
       </div>
 
       <ul class="profile-menu">
@@ -89,4 +90,20 @@ export function getProfileDashboardHTML(element) {
       </button>
     </div>
   `;
+
+  const fileInput = element.querySelector('#profilePhotoInput');
+  const photoLabel = element.querySelector('.profile-photo-label');
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      localStorage.setItem("profilephoto", dataUrl);
+      photoLabel.innerHTML = `<img src="${dataUrl}" alt="Profile Photo" class="profile-photo" />`;
+    };
+    reader.readAsDataURL(file);
+  });
 }

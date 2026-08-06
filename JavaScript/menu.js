@@ -1,4 +1,9 @@
 
+import { editProfile } from "./setting.js";
+
+
+
+
  export function UserMenu(element){
 const userName=localStorage.getItem("userName")
 const rawWishlist = localStorage.getItem("wishlist");
@@ -47,10 +52,11 @@ element.innerHTML = `
 
 
   <!-- SECTION 1: ACCOUNT & SECURITY -->
-  <section class="settings-group">
+  <section class="settings-group" >
+
     <h3 class="group-title">Account & Security</h3>
     <ul class="settings-list">
-      <li class="settings-item" onclick="navigateTo('profile')">
+      <li class="settings-item" id="account-security">
         <div class="item-info">
           <span class="item-title">Edit Profile</span>
           <span class="item-subtitle">Name, email, phone number</span>
@@ -58,7 +64,7 @@ element.innerHTML = `
         <span class="chevron">&rsaquo;</span>
       </li>
 
-      <li class="settings-item" onclick="navigateTo('addresses')">
+      <li class="settings-item" id="saved-addresses">
         <div class="item-info">
           <span class="item-title">Saved Addresses</span>
           <span class="item-subtitle">Manage shipping & billing addresses</span>
@@ -66,7 +72,7 @@ element.innerHTML = `
         <span class="chevron">&rsaquo;</span>
       </li>
 
-      <li class="settings-item" onclick="navigateTo('payments')">
+      <li class="settings-item" id="payment-methods">
         <div class="item-info">
           <span class="item-title">Payment Methods</span>
           <span class="item-subtitle">Cards, Apple Pay, Google Pay</span>
@@ -74,7 +80,7 @@ element.innerHTML = `
         <span class="chevron">&rsaquo;</span>
       </li>
 
-      <li class="settings-item" onclick="navigateTo('security')">
+      <li class="settings-item" id="security-password">
         <div class="item-info">
           <span class="item-title">Security & Password</span>
           <span class="item-subtitle">Change password, 2FA</span>
@@ -160,6 +166,8 @@ element.innerHTML = `
 `;
 
 element.addEventListener("change", (event) => {
+
+
 
   
 if(event.target.id==='theme-select' && event.target.value==='light'){

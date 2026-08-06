@@ -1,0 +1,432 @@
+/* ============================================
+   PROFILE / SETTINGS COMPONENT STYLES
+   Uses tokens from variables.css
+   ============================================ */
+
+.profile-panel,
+.settings-container {
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: var(--font-body);
+  transition: background var(--dur-base) var(--ease-standard),
+              color var(--dur-base) var(--ease-standard);
+}
+
+.profile-panel-header,
+.settings-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.settings-panel-header h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-close,
+.settings-back {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text);
+  font-size: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard);
+}
+
+.profile-close:hover,
+.settings-back:hover {
+  background: var(--color-surface-2);
+  border-color: var(--color-border-strong);
+}
+
+/* ============================================
+   PROFILE HEADER (avatar + name)
+   ============================================ */
+.profile-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.profile-avatar {
+  position: relative;
+  width: 96px;
+  height: 96px;
+}
+
+.profile-photo-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-2);
+  border: 2px solid var(--color-border);
+  cursor: pointer;
+  overflow: hidden;
+  font-size: 32px;
+  color: var(--color-text-subtle);
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.profile-photo-label:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-accent);
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ============================================
+   MENU LIST (profile panel + settings groups)
+   ============================================ */
+.profile-menu,
+.settings-list {
+  list-style: none;
+  margin: 0 0 24px 0;
+  padding: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-menu-item,
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard);
+}
+
+.profile-menu-item:last-child,
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.profile-menu-item:hover,
+.settings-item:hover {
+  background: var(--color-surface-2);
+}
+
+.menu-icon {
+  width: 24px;
+  text-align: center;
+  margin-right: 12px;
+  color: var(--color-accent);
+}
+
+.chevron {
+  color: var(--color-text-subtle);
+  font-size: 14px;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.item-title {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.item-subtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   SETTINGS GROUPS (sections with titles)
+   ============================================ */
+.settings-group {
+  margin-bottom: 24px;
+}
+
+.group-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 8px 8px;
+}
+
+.settings-control {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+
+.settings-control:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* ============================================
+   TOGGLE SWITCH
+   ============================================ */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: var(--color-surface-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  transition: background-color var(--dur-fast) var(--ease-standard);
+}
+
+.toggle-switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--color-surface);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.toggle-switch input:checked + .slider::before {
+  transform: translateX(20px);
+  background-color: var(--color-on-accent);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.save-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-accent);
+  transition: background var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-spring);
+  margin-top: 8px;
+}
+
+.save-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+.save-btn:active {
+  background: var(--color-accent-active);
+  transform: scale(0.98);
+}
+
+.signOutBtn {
+  width: 100%;
+  padding: 13px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard);
+  margin-bottom: 10px;
+}
+
+.signOutBtn:hover {
+  background: var(--color-surface-2);
+  border-color: var(--color-border-strong);
+}
+
+#deleteAccountBtn {
+  width: 100%;
+  padding: 13px;
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
+}
+
+#deleteAccountBtn:hover {
+  background: var(--color-danger);
+  color: var(--color-on-accent);
+}
+
+.profile-logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px;
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
+}
+
+.profile-logout-btn:hover {
+  background: var(--color-danger);
+  color: var(--color-on-accent);
+}
+
+.delete-address-btn,
+.delete-card-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-subtle);
+  cursor: pointer;
+  font-size: 15px;
+  padding: 6px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+.delete-address-btn:hover,
+.delete-card-btn:hover {
+  color: var(--color-danger);
+}
+
+/* ============================================
+   FORMS (Edit Profile, Add Address, Add Card, Password)
+   ============================================ */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-top: 8px;
+}
+
+.form-input {
+  padding: 11px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.form-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.empty-state {
+  text-align: center;
+  color: var(--color-text-subtle);
+  font-size: 14px;
+  padding: 24px 0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+  .profile-panel,
+  .settings-container {
+    padding: 16px;
+  }
+}
